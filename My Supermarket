@@ -1,0 +1,153 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local _1stbutton = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local _2nddbutton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local TextLabel_2 = Instance.new("TextLabel")
+local TextLabel_3 = Instance.new("TextLabel")
+local UICorner_4 = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Main.Name = "Main"
+Main.Parent = ScreenGui
+Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.613286257, 0, 0.475511909, 0)
+Main.Size = UDim2.new(0, 123, 0, 111)
+Main.Active = true
+Main.Draggable = true
+
+TextLabel.Parent = Main
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 132, 255)
+TextLabel.BorderColor3 = Color3.fromRGB(0, 85, 255)
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(0, 123, 0, 19)
+TextLabel.Font = Enum.Font.FredokaOne
+TextLabel.Text = "My Supermarket"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 14.000
+
+UICorner.Parent = TextLabel
+
+_1stbutton.Name = "1stbutton"
+_1stbutton.Parent = Main
+_1stbutton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+_1stbutton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+_1stbutton.BorderSizePixel = 0
+_1stbutton.Position = UDim2.new(0.512194633, 0, 0.310000032, 0)
+_1stbutton.Size = UDim2.new(0, 51, 0, 19)
+_1stbutton.Font = Enum.Font.SourceSans
+_1stbutton.Text = "off"
+_1stbutton.TextColor3 = Color3.fromRGB(0, 0, 0)
+_1stbutton.TextSize = 14.000
+
+
+UICorner_2.Parent = _1stbutton
+
+_2nddbutton.Name = "2nddbutton"
+_2nddbutton.Parent = Main
+_2nddbutton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+_2nddbutton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+_2nddbutton.BorderSizePixel = 0
+_2nddbutton.Position = UDim2.new(0.512194633, 0, 0.569999993, 0)
+_2nddbutton.Size = UDim2.new(0, 51, 0, 19)
+_2nddbutton.Font = Enum.Font.SourceSans
+_2nddbutton.Text = "GO"
+_2nddbutton.TextColor3 = Color3.fromRGB(0, 0, 0)
+_2nddbutton.TextSize = 14.000
+
+UICorner_3.Parent = _2nddbutton
+
+TextLabel_2.Parent = Main
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(157, 157, 157)
+TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(-1.48866229e-06, 0, 0.310000002, 0)
+TextLabel_2.Size = UDim2.new(0, 56, 0, 19)
+TextLabel_2.Font = Enum.Font.FredokaOne
+TextLabel_2.Text = "Restock📦"
+TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.TextSize = 14.000
+
+TextLabel_3.Parent = Main
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(157, 157, 157)
+TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.BorderSizePixel = 0
+TextLabel_3.Position = UDim2.new(-1.48866229e-06, 0, 0.569999993, 0)
+TextLabel_3.Size = UDim2.new(0, 56, 0, 19)
+TextLabel_3.Font = Enum.Font.FredokaOne
+TextLabel_3.Text = "Cart🛒"
+TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.TextSize = 14.000
+
+UICorner_4.Parent = Main
+
+local toggle = false  -- Variable to keep track of the toggle state
+
+local function toggleButton()
+	toggle = not toggle  -- Toggle the state
+
+	if toggle then
+		_1stbutton.Text = "on"
+		_1stbutton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Change color to green
+		while toggle do
+			for i = 1, 500 do
+				local args = {
+					[1] = 10000 + i
+				}
+
+				game:GetService("ReplicatedStorage"):WaitForChild("Scene"):WaitForChild("SceneManager"):WaitForChild("PlayerUse"):FireServer(unpack(args))
+			end
+			wait(1)
+		end
+	else
+		_1stbutton.Text = "off"
+		_1stbutton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Change color to red
+	end
+end
+
+_1stbutton.MouseButton1Click:Connect(toggleButton)
+
+
+--second button script
+local function runSecondButtonCode()
+	local player = game.Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	local humanoid = character:WaitForChild("Humanoid")
+
+	local part = game:GetService("Workspace").Moon.HelpPoints.BuildAreaPoints.BuildBlocks.BlockPark_1_46_5.BlockModel
+	humanoid.RootPart.CFrame = part.CFrame
+
+	wait(0.3)
+
+	local args = {
+		[1] = 4
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("Scene"):WaitForChild("SceneManager"):WaitForChild("PlayerTake"):FireServer(unpack(args))
+
+	wait(0.3)
+
+	local part2 = game:GetService("Workspace").Moon.HelpPoints.BuildAreaPoints.BuildBlocks.BlockPark_1_36_5.BlockModel
+	humanoid.RootPart.CFrame = part2.CFrame
+
+	wait(0.3)
+
+	local args = {
+		[1] = 3
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("Scene"):WaitForChild("SceneManager"):WaitForChild("PlayerReturn"):FireServer(unpack(args))
+
+	wait(1)
+end
+
+_2nddbutton.MouseButton1Click:Connect(runSecondButtonCode)
